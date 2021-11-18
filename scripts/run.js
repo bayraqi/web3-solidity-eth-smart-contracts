@@ -1,16 +1,15 @@
 const main = async () => {
-    // const [owner, randomPerson] = await hre.ethers.getSigners();
+
     const waveContractFactory = await hre.ethers.getContractFactory('WavePortal');
     const waveContract = await waveContractFactory.deploy()
     await waveContract.deployed();
-
-    // console.log("Created Account: ", owner.address);
-    // console.log('Connected to FPAY Main Network Node : ', waveContract.address);
+    console.log("Contract address: ", waveContract.address);
 
     let waveCount;
     waveCount = await waveContract.getTotalWaves();
+    console.log(waveCount.toNumber());
 
-    let waveTxn = await waveContract.wave();
+    let waveTxn = await waveContract.wave('A message');
     await waveTxn.wait();
 
     const [_, randomPerson] = await hre.ethers.getSigners();
